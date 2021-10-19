@@ -6,42 +6,45 @@ public class Main {
                Input: Tact Coa
                Output: True (permutations: "taco cat", "atco eta", etc.)
               */
-
-
-
+    
     public static void main(String[] args) {
-	    String s = "Rats live on no evil star";
+	    String s = "Zeus was deified, saw Suez";
 	    System.out.println(Palindrome_Perm(s));
     }
 
     static private boolean Palindrome_Perm(String s){
         // first need to check if its of even length or odd
         boolean isEven = false;
-        s = s.trim().replaceAll(" +", "");
-        if(s.length() % 2 == 0) isEven = true;
-        // removing space
-
+        
+        s = s.trim().replaceAll(" +", "").toLowerCase();
+        
         // assuming string is of lower case letter only
         int[] map = new int[26];
-        s = s.toLowerCase(); // just in case, make it lowercase;
 
+        int cleanString_Len = 0;
         // loop to count occurance of char
         char[] str = s.toCharArray();
-        for(char c : str)
-            map[c - 'a']++;
-        // if length is of even size, every char should occur atleast twice of n%2 == 0 if not return false;
-        int oddCount = 0;
-        if(isEven) {
-            for (int i = 0; i < 26; i++) {
-                if (map[i] % 2 != 0) return false;
+        for(char c : str) {
+            if(c >= 'a' && c <= 'z') {
+                map[c - 'a']++;
+                cleanString_Len++;
             }
         }
+        
+        if(cleanString_Len % 2 == 0) isEven = true;
+        
+        // if length is of even size, every char should occur atleast twice of n%2 == 0 if not return false;
+        if(isEven) {
+            for (int i = 0; i < 26; i++) 
+                if (map[i] % 2 != 0) return false;
+        }
         else{
-            for (int i = 0; i < 26; i++) {
+            int oddCount = 0;
+            for (int i = 0; i < 26; i++) 
                 if (map[i] % 2 != 0) oddCount++;
-            }
+                
             return oddCount == 1;
-
         }
         return true;
     }
+}
