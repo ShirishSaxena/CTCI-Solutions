@@ -6,18 +6,23 @@ public class Main {
                Input: Tact Coa
                Output: True (permutations: "taco cat", "atco eta", etc.)
               */
-    
+
     public static void main(String[] args) {
-	    String s = "Zeus was deified, saw Suez";
-	    System.out.println(Palindrome_Perm(s));
+	    String s = "ratzsliveonnoevilstarz";
+        String[] strings = {"Rats live on no evil star",
+                "A man, a plan, a canal, panama",
+                "Lleve",
+                "Tacotac",
+                "asda"};
+        for(String f : strings)
+            System.out.println(f + " : " + Palindrome_Perm(f));
+	    //System.out.println(Palindrome_Perm(s));
     }
 
     static private boolean Palindrome_Perm(String s){
         // first need to check if its of even length or odd
         boolean isEven = false;
-        
-        s = s.trim().replaceAll(" +", "").toLowerCase();
-        
+
         // assuming string is of lower case letter only
         int[] map = new int[26];
 
@@ -29,22 +34,19 @@ public class Main {
                 map[c - 'a']++;
                 cleanString_Len++;
             }
+            else if(c >= 'A' && c <= 'Z'){
+                map[c - 'A']++;
+                cleanString_Len++;
+            }
         }
-        
+
         if(cleanString_Len % 2 == 0) isEven = true;
-        
-        // if length is of even size, every char should occur atleast twice of n%2 == 0 if not return false;
-        if(isEven) {
-            for (int i = 0; i < 26; i++) 
-                if (map[i] % 2 != 0) return false;
+        int oddCount = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (map[i] % 2 != 0) oddCount++;
         }
-        else{
-            int oddCount = 0;
-            for (int i = 0; i < 26; i++) 
-                if (map[i] % 2 != 0) oddCount++;
-                
-            return oddCount == 1;
-        }
-        return true;
+
+        return ((isEven && oddCount == 0) || !isEven && oddCount == 1);
     }
 }
