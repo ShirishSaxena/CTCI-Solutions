@@ -1,0 +1,47 @@
+public class Main {
+/*   Q 1.4 -> Palindrome Permutation: Given a string, write a function to check if it is a permutation of a palindrome.
+              A palindrome is a word or phrase that is the same forwards and backwards. A permutation
+              is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
+
+               Input: Tact Coa
+               Output: True (permutations: "taco cat", "atco eta", etc.)
+              */
+
+
+
+    public static void main(String[] args) {
+	    String s = "Rats live on no evil star";
+	    System.out.println(Palindrome_Perm(s));
+    }
+
+    static private boolean Palindrome_Perm(String s){
+        // first need to check if its of even length or odd
+        boolean isEven = false;
+        s = s.trim().replaceAll(" +", "");
+        if(s.length() % 2 == 0) isEven = true;
+        // removing space
+
+        // assuming string is of lower case letter only
+        int[] map = new int[26];
+        s = s.toLowerCase(); // just in case, make it lowercase;
+
+        // loop to count occurance of char
+        char[] str = s.toCharArray();
+        for(char c : str)
+            map[c - 'a']++;
+        // if length is of even size, every char should occur atleast twice of n%2 == 0 if not return false;
+        int oddCount = 0;
+        if(isEven) {
+            for (int i = 0; i < 26; i++) {
+                if (map[i] % 2 != 0) return false;
+            }
+        }
+        else{
+            for (int i = 0; i < 26; i++) {
+                if (map[i] % 2 != 0) oddCount++;
+            }
+            return oddCount == 1;
+
+        }
+        return true;
+    }
